@@ -1,0 +1,61 @@
+<html lang="zh-cn">
+    
+    <head>
+        <title>Zero影院</title>
+        {% include "include/head.html" %}
+    </head>
+    
+    <body class="home">
+        {% include "include/focus.html" %}
+        {% include "include/nav.html" %}
+        <div id="main">
+            {% include "include/tag.html" %}
+            <script type="text/javascript">
+                let movie_douban_top = {{ data.movie_douban_top|safe|default:"[]" }};
+                let movie_douban_new = {{ data.movie_douban_new|safe|default:"[]" }};
+                let movie_index_tag = {{ data.movie_index_tag|safe|default:"[]" }};
+            </script>
+            <div class="mikd">
+                <div class="mi_btcon">
+                    <div class="bt_tit mi_ne_kd">
+                        	<h2><a href="javascript:void(0);">最新电影</a><i class="fa"></i></h2>
+                	<a target="_blank" href="/search.html?type=new" class="moreb">更多<i class="el-icon-d-arrow-right"></i></a>
+                    </div>
+                    <div class="bt_img mi_ne_kd leibox" id="movie_douban_new">
+
+                    </div>
+                </div>
+                {% for tag in data.movie_index_tag %}
+                    <div class="mi_btcon">
+                        <div class="bt_tit mi_ne_kd">
+                            	<h2><a href="javascript:void(0);">{{ tag.tag }}</a><i class="fa"></i></h2>
+                    	<a target="_blank" href="/search.html?type=geners&s={{ tag.tag }}" class="moreb">更多<i class="el-icon-d-arrow-right"></i></a>
+                        </div>
+                        <div class="bt_img mi_ne_kd leibox" id="movie_index_tag_{{ forloop.counter }}">
+
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="mi_btcon">
+                    <div class="bt_tit mi_ne_kd">
+                        	<h2><a href="javascript:void(0);">豆瓣高分电影</a><i class="fa"></i></h2>
+                	<a target="_blank" href="/search.html?type=top" class="moreb">更多<i class="el-icon-d-arrow-right"></i></a>
+                    </div>
+                    <div class="bt_img mi_ne_kd leibox" id="movie_douban_top">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            movie_show(movie_douban_new,"movie_douban_new");
+            movie_show(movie_index_tag[0]["data"],"movie_index_tag_1");
+            movie_show(movie_index_tag[1]["data"],"movie_index_tag_2");
+            movie_show(movie_index_tag[2]["data"],"movie_index_tag_3");
+            movie_show(movie_index_tag[3]["data"],"movie_index_tag_4");
+            movie_show(movie_douban_top,"movie_douban_top");
+        </script>
+        {% include "include/footer.html" %}
+    </body>
+
+</html>

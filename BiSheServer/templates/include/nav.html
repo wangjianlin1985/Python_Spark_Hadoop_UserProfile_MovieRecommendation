@@ -1,0 +1,137 @@
+{% load set_var  %}
+<div id="nav">
+    <div id="nav-left" style="width:15%;float:left;height:50px;">
+        <a href="/" target="_black">
+            <div id="nav-left-ico" style="position:relative;">
+                <div id="nav-ico">
+
+                </div>
+            </div>
+        </a>
+    </div>
+    <div id="nav-right" style="width:83%;float:right;height: 50px;">
+        <div class="nav-content">
+            <div class="h1"><a href="/"><h1>Zero影院</h1></a></div>
+            <input type="hidden" value="{{ request.session.user_id }}" name="user_id" />
+        </div>
+
+{% for tag in data.movie_nav_tag %}
+        <div class="nav-content">
+            <div class="h1 clear"><a href="/search.html?type=geners&s={{ tag.tag }}"><h1>{{ tag.tag }}</h1></a></div>
+            <div class="nav-meun">
+                <div class="bt_img mi_ne_kd leibox nav-show" id="movie_nav_tag_{{ forloop.counter }}">
+
+                </div>
+            </div>
+        </div>
+{% endfor %}
+        <script type="text/javascript">
+            let movie_nav_tag = {{ data.movie_nav_tag|safe|default:"[]" }};
+        </script>
+        <div class="nav-content">
+            <div class="souuo"><div id="sosuobox"><form action="/search.html" class="w-search-form show_hidden" style="margin-top: 4px;"><input type="hidden" value="all" name="type" /><input type="text" value="" id="s" name="s" placeholder="电影名称/类型/语言/年份/国家" class="soiput"> <button type="submit" class="souicon"><i class="fa-search fa"></i></button></form></div></div>
+        </div>
+        <div class="nav-content">
+            <script type="text/javascript">
+                let user_like = {{ data.user_like|safe|default:"[]" }};
+                let user_5_like = {{ data.user_5_like|safe|default:"[]" }};
+                let user_5_brow = {{ data.user_5_brow|safe|default:"[]" }};
+                let user_5_cai = {{ data.user_5_cai|safe|default:"[]" }};
+            </script>
+            <div class="history" > <i class="clock outline icon"></i>
+                <div class="menu" tabindex="-1"></div>
+            </div>
+            <div class="nav-meun">
+                <div class="nav-histroy">
+                    <h1 class="title">历史浏览记录</h1>
+
+                    <div id="user_5_brow" class="bt_img mi_ne_kd leibox history-show">
+
+                    </div>
+                    <h1 class="title like-show"><a href="/userCollection.html" >收藏记录</a></h1>
+
+                    <div id="user_5_like" class="bt_img mi_ne_kd leibox history-show like-show">
+
+                    </div>
+                    <h1 class="title cai-show">猜你喜欢</h1>
+
+                    <div id="user_5_cai" class="bt_img mi_ne_kd leibox history-show cai-show">
+                        <h1 style="width: 100px;text-align: center;">无信息</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% if request.session.is_login %}
+        <div class="nav-content" style="margin-left:10px;">
+            <div class="btn-group">
+                <ul class="dropdown-menu top-dropdown-ul" role="menu" style="top: 95%;">
+                    {% if request.session.user_role == '2' %}
+                        <li ><a href="/admin/">管理中心</a></li>
+                    {% endif %}
+                    <li ><a href="/userInfo.html">用户中心</a></li>
+                    <li ><a href="/modifyPwd.html">密码修改</a></li>
+                    <li ><a href="/modifyEmail.html">邮箱修改</a></li>
+                    <li ><a href="/userCollection.html">收藏管理</a></li>
+                    <li ><a href="/userComment.html">评论管理</a></li>
+                    <li onclick="logout();"><a href="#">注销</a></li>
+                </ul>
+                <div class="dropdown-toggle" data-toggle="dropdown" style="color: black;padding: 10px;height: 50px;cursor: pointer;">
+                    <a id="top-dropdown-btn" style="position: relative;" href="userInfo.html">
+                        <span class="fa "><img class="img-responsive" src="/{{ request.session.user_img }}" style="width: 20px;height: 20px;top: 5px;position: relative;border-radius: 10px;word-wrap: inherit;word-break: inherit;word-spacing: inherit;">
+                        </span>&nbsp;{{ request.session.user_uname }}
+                        <span class="caret"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+{% else %}
+        <div class="nav-content">
+            <div class="login h1">
+                <h1><a>登录</a></h1>
+            </div>
+            <div class="nav-meun">
+                <div style="margin:0 10% 0 10%;">
+
+                    <div>
+                        <h1 style="text-align: center;font-size: 24px;">用户登录</h1>
+                        <form class="login-form" id="login_form" onsubmit="return login();" style="width: 300px;text-align: center;margin: 0 auto;color: black;">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="background: #fff;">
+                                        <img src="/static/images/log_ic01.png" width="16" height="16" alt="用户名">
+                                    </div>
+                                    <input type="text" class="form-control" name="username" id="loginName" value="" placeholder="用户名/邮箱" onblur="" autocomplete="off" style="color: black;font-weight: bold;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="background: #fff;">
+                                        <img src="/static/images/log_ic02.png" width="16" height="16" alt="密码">
+                                    </div>
+                                    <input type="password" class="form-control" name="password" id="loginPwd" value="" placeholder="密码" onblur="" autocomplete="off" style="color: black">
+                                </div>
+                            </div>
+                            <div class="form-group" id="myDiv">
+                                <span id="login_tip" class="checkbox pull-left " target="_blank" style="margin-top: 0;color: red;"></span>
+                                <a href="forgetPwd.html" id="wjmm" class="checkbox pull-right " target="_blank" style="margin-top: 0;">忘记密码？</a>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block" id="dl">登 录</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="nav-content" style="margin-left:10px;">
+            <div class="register h1">
+                <h1><a href="/register.html">注册</a></h1>
+            </div>
+        </div>
+{% endif %}
+
+    </div>
+</div>

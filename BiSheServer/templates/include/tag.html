@@ -1,0 +1,19 @@
+<div class="mi_tag"{% if page == "index.html" %}
+ style="margin-top:0px;"
+{% endif %}>
+    <div class="v-sort-nav">
+        <div class="ct follow-align">
+            <ul class="submenu_mi">
+{#                {% for tag in data.movie_tag %}#}
+{#                    <li class="menu-item menu-item-type-taxonomy menu-item-object-movie_bt_tags"><a href="category.html?tag={{ tag.movie_type }}">{{ tag.movie_type }}</a></li>#}
+{#                {% endfor %}#}
+{#                <li class="menu-item menu-item-type-taxonomy menu-item-object-movie_bt_tags"><a href="category.html?tag=all">更多</a></li>#}
+                {% for tag in data.movie_tag %}
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-movie_bt_tags"><a href="/search.html?type=tag&s={{ tag.movie_type }}">{{ tag.movie_type }}</a></li>
+                {% endfor %}
+                <li class="menu-item menu-item-type-taxonomy menu-item-object-movie_bt_tags"><a href="/search.html?type=all">更多</a></li>
+                <!-- Nav cache end -->
+            </ul>
+        </div>
+    </div>
+</div>

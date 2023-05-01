@@ -1,0 +1,25 @@
+<html lang="zh-cn">
+    
+    <head>
+        <title>Zero影院</title>
+        {% include "include/head.html" %}
+    </head>
+    
+    <body class="home">
+        {% include "include/nav.html" %}
+        <div id="main">
+            {% include "include/tag.html" %}
+            <div class="mikd">
+                <div class="mi_btcon" style="padding: 20px;">
+                    <center><h2 style="font-size: 1.35em;">{{ title }}</h2></center>
+                </div>
+            </div>
+            {% with "include/"|add:page as template %}
+                {% include template %}
+            {% endwith %}
+        </div>
+        
+        {% include "include/footer.html" %}
+    </body>
+
+</html>

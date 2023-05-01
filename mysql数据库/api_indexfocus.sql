@@ -1,0 +1,3 @@
+INSERT INTO `api_indexfocus`(`id`, `show_id`, `movie_img`, `movie_content`, `status`, `movie_id_id`, `create_time`) VALUES (1, 2, 'static/images/focus/09480d8b63c479.jpg', '神奇女侠', 1, 27073752, '2021-04-22 17:21:00.000000');
+INSERT INTO `api_indexfocus`(`id`, `show_id`, `movie_img`, `movie_content`, `status`, `movie_id_id`, `create_time`) VALUES (2, 1, 'static/images/focus/4136f145453342.jpg', '信条', 1, 30444960, '2021-04-22 17:22:00.000000');
+INSERT INTO `api_indexfocus`(`id`, `show_id`, `movie_img`, `movie_content`, `status`, `movie_id_id`, `create_time`) VALUES (3, 3, 'static/images/focus/04ec08f97e9773.jpg', '急先锋', 1, 27195078, '2021-04-22 17:23:00.000000');

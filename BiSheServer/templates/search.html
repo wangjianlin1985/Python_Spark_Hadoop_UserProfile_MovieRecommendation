@@ -1,0 +1,46 @@
+<html lang="zh-cn">
+{% load set_var %}
+{% set movie_datas = data.movie_data %}
+    <head>
+        <title>Zero影院</title>
+        {% include "include/head.html" %}
+    </head>
+    
+    <body class="home">
+        {% include "include/nav.html" %}
+        <div id="main">
+            {% include "include/tag.html" %}
+            <div class="mikd">
+                <div class="mi_btcon" style="padding: 20px;">
+                    <h2>共搜索到：<span id="movie_total">0</span>条相关信息！</h2>
+                    <script type="text/javascript">
+                        let movie_data = {{ movie_datas|safe|default:"[]" }};
+                    </script>
+                </div>
+            </div>
+            <div class="mikd">
+                <div class="mi_btcon">
+                    <div class="bt_tit mi_ne_kd">
+                        	<h2><a id="movie_key"></a><i class="fa"></i></h2>
+                    </div>
+                    <div class="bt_img mi_ne_kd leibox">
+                        <input id="dqPage" type="hidden" value="{{ movie_datas.Page }}" />
+                        <input id="pageCount" type="hidden" value="{% widthratio movie_datas.Total movie_datas.Limit|default:10 1%}" />
+                        <div class="pagenavi_txt_pre pagenavi_txt">
+                            <div id="pageBtn_pre" style="width: auto;display:inline-block !important;height: auto;"></div>
+                        </div>
+                        <ul id="movie_search_show">
+
+                        </ul>
+                        <div class="pagenavi_txt pagenavi_txt_bef">
+                            <div id="pageBtn_bef" style="width: auto;display:inline-block !important;height: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="/static/js/search.js"></script>
+        {% include "include/footer.html" %}
+    </body>
+
+</html>

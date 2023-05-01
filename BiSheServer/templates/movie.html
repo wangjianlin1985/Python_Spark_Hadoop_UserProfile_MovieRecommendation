@@ -1,0 +1,73 @@
+<html lang="zh-cn">
+{% load set_var %}
+{% set movie_datas = data.movie_data %}
+    <head>
+        <title>Zero影院</title>
+        {% include "include/head.html" %}
+    </head>
+    
+    <body class="home">
+        {% include "include/nav.html" %}
+        <div id="main">
+            {% include "include/tag.html" %}
+            <script type="text/javascript">
+                let movie_data = {{ movie_datas|safe|default:"[]" }};
+                let commentData = {{ data.movie_comments|safe|default:"[]" }};
+                let user_movie_rating = {{ data.user_movie_rating|safe|default:"[]" }};
+                let user_movie_like = {{ data.user_movie_like|safe|default:"[]" }};
+                let user_movie_comment_id = {{ data.user_movie_comment_id|safe|default:"[]" }};
+                let movie_5_cai = {{ data.movie_5_cai|safe|default:"[]" }};
+            </script>
+            <div class="mikd" id="movie_detail">
+
+            </div>
+            <div class="mikd">
+                <div id="content">
+
+                </div>
+                <div class="past-day-statis" id="brief">
+
+                </div>
+                <div class="mi_btcon" name="movieLike">
+                    <div class="bt_tit mi_ne_kd">
+                        	<h2><a href="#movieLike">猜你喜欢</a><i class="fa"></i></h2>
+                    </div>
+                    <div class="bt_img mi_ne_kd leibox cai_list" id="cai_list">
+
+                    </div>
+                </div>
+            </div>
+            <div class="mikd" name="comments">
+                <div class="mi_btcon" style="padding: 20px;">
+                    <div class="bt_tit mi_ne_kd">
+                        	<h2><a href="#comments">发表评论</a><i class="fa"></i></h2>
+                    </div>
+                    <div class="">
+                        <form id="comments" action="" onsubmit="return comments();" accept-charset="utf-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="movie_id" id="movie_id" value="" />
+                            <input type="hidden" name="movie_title" id="movie_title" value="" />
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="title" id="content_title" size="15" required="required" value="" placeholder="评论标题" style="width: 65%;display: inline-block;">
+                                <p class="tjbtn" style="float: right;">
+                                    <span class="ssbbsr" style="margin-right: 10px;" id="content_tip">你还可以输入<span class="cf30 abc">500</span> 个字符</span>
+                                    <input id="submit" type="submit" name="submit" value="确认提交 / Ctrl+Enter" class="btn btn-primary btn-block" style="width: 200px;"></p>
+                            </div>
+                            <textarea class="content_text" name="content_text" required="required" id="content_text" onchange="content_length();" onkeypress="content_length()" onkeyup="content_length()" placeholder="在此处输入评论内容..." cols="105" rows="3" tabindex="4" onkeydown="if(event.ctrlKey&&event.keyCode==13){document.getElementById('submit').click();return false};content_length()" maxlength="500"></textarea>
+                        </form>
+                    </div>
+                    <div class="bt_tit mi_ne_kd">
+                        <h2><a href="#comments">全部评论（<span id="commentI">0</span>）</a><i class="fa"></i></h2>
+                    </div>
+                    <ol class="commentlist" id="commentlist">
+
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/static/js/movie.js"></script>
+        {% include "include/footer.html" %}
+    </body>
+
+</html>

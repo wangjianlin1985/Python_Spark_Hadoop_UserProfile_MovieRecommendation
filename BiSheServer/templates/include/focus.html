@@ -1,0 +1,103 @@
+<div id="focus">
+    <div class="photo">
+        <ul id="tupian">
+            {% for focus in data.index_focus %}
+                <li {% ifequal forloop.counter 1 %}class="cur" {% endifequal %}data-id="{{ focus.movie_id }}">
+                    <img alt="{{ focus.content }}" src="{{ focus.movie_img }}" />
+                </li>
+            {% endfor %}
+{#            <li class="cur" data-id="123">#}
+{#                <img src="/static/images/focus/4136f145453342.jpg" />#}
+{#            </li>#}
+{#            <li data-id="456">#}
+{#                <img src="/static/images/focus/09480d8b63c479.jpg" />#}
+{#            </li>#}
+{#            <li data-id="789">#}
+{#                <img src="/static/images/focus/04ec08f97e9773.jpg" />#}
+{#                <!--<div class="mubu"></div>-->#}
+{#                <!--<div class="slide-text" style="text-align: right !important;">-->#}
+{#                <!--    <h1>想过？</h1>-->#}
+{#                <!--    <p>一分钟你所在城市最繁华地带城市的车流量是多少吗？</p>-->#}
+{#                <!--</div>-->#}
+{#            </li>#}
+        </ul>
+        <span class="slider" id="prev"></span>
+        <span class="slider" id="next"></span>
+    </div>
+    <div class="carousel-indicators">
+        <ul id="touch-slider">
+            {% for focus in data.index_focus %}
+                <li {% ifequal forloop.counter 1 %}class="cur" {% endifequal %}></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    $("#tupian li").click(function () {
+        let data_id = $("#focus [class=cur]")[0].dataset.id;
+        window.open("movie.html?id="+data_id.split(" - ")[0],'_blank');
+        {#window.location.href = "movie.html?id="+data_id.split(" - ")[0]#}
+        {#data_id.sp#}
+        {#console.log(data_id);#}
+    })
+    {#window.onload=function(){#}
+        //焦点图轮播特效
+    $( document ).ready(function(){
+        var focus=document.getElementById("focus");
+        var prev=document.getElementById("prev");
+        var next=document.getElementById("next");
+        var tupian=document.getElementById("tupian").getElementsByTagName("li");
+        var slider=document.getElementById("touch-slider").getElementsByTagName("li");
+        var imgs=document.getElementById("tupian").getElementsByTagName("img");
+        var nowing=0;
+        var time=0;
+        window.clearInterval(time);
+        time=window.setInterval(dong,3000);
+        focus.onmouseover=function(){
+            window.clearInterval(time);
+        }
+        focus.onmouseout=function(){
+            window.clearInterval(time);
+            time=window.setInterval(dong,3000);
+        }
+        next.onclick=dong;
+        function dong(){
+            if(nowing<tupian.length-1){
+                nowing++;
+            }else{
+                nowing=0;
+            }
+            sliders();
+            sliderli();
+        }
+        prev.onclick=function(){
+            if(nowing>0){
+                nowing--;
+            }else{
+                nowing=tupian.length-1;
+            }
+            sliders();
+            sliderli();
+        }
+        for(var i=0;i<=slider.length-1;i++){
+            slider[i].index=i;
+            slider[i].onclick=function(){
+                nowing=this.index;
+                sliders();
+                sliderli();
+            }
+        }
+        function sliders(){
+            for(var i=0;i<=tupian.length-1;i++){
+                tupian[i].className="";
+            }
+            tupian[nowing].className="cur";
+        }
+        function sliderli(){
+            for(var i=0;i<=tupian.length-1;i++){
+                slider[i].className="";
+            }
+            slider[nowing].className="cur";
+        }
+    });
+</script>
